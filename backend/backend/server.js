@@ -290,6 +290,14 @@ app.get('/api/poll-history', (req, res) => {
   res.json(pollHistory);
 });
 
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Quiz Polling Server is running',
+    socketIO: 'Socket.IO server active'
+  });
+});
+
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
