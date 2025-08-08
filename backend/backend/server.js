@@ -1,6 +1,29 @@
+// import dotenv from 'dotenv'
+// dotenv.config()
+
+
+// import express from 'express';
+// import { createServer } from 'http';
+// import { Server } from 'socket.io';
+// import cors from 'cors';
+// import { v4 as uuidv4 } from 'uuid';
+
+// const app = express();
+// const server = createServer(app);
+// // Update CORS configuration
+// const io = new Server(server, {
+//   cors: {
+//     origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+//     methods: ["GET", "POST"]
+//   }
+// });
+
+// app.use(cors());
+// app.use(express.json());
+
+
 import dotenv from 'dotenv'
 dotenv.config()
-
 
 import express from 'express';
 import { createServer } from 'http';
@@ -10,18 +33,34 @@ import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 const server = createServer(app);
-// Update CORS configuration
-const io = new Server(server, {
-  cors: {
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
-    methods: ["GET", "POST"]
-  }
-});
 
-app.use(cors());
+// Comprehensive CORS configuration
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "https://quiz-polling.vercel.app",
+    "https://quiz-polling-api.vercel.app",
+    process.env.CORS_ORIGIN
+  ].filter(Boolean),
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+};
+
+// Apply CORS to Express
+app.use(cors(corsOptions));
 app.use(express.json());
 
-// In-memory storage for polls and students
+// Apply the same CORS to Socket.IO
+const io = new Server(server, {
+  cors: corsOptions,
+  allowEIO3: true,
+  transports: ["polling", "websocket"],
+  pingTimeout: 60000,
+  pingInterval: 25000
+});
+
+// In-memory storage for polls and students 
 let currentPoll = null;
 let students = new Map();
 let pollHistory = [];
