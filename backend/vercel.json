@@ -2,23 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "./server.js",
+      "src": "./backend/server.js", 
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/socket.io/(.*)",
-      "dest": "/server.js"
+      "dest": "/backend/server.js"   
     },
     {
       "src": "/(.*)",
-      "dest": "/server.js"
+      "dest": "/backend/server.js"    
     }
-  ],
-  "functions": {
-    "server.js": {
-      "maxDuration": 30
-    }
-  }
+  ]
 }
