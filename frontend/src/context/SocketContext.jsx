@@ -28,7 +28,7 @@ export const SocketProvider = ({ children }) => {
   const { role, name } = useSelector((state) => state.user)
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3001')
+    const newSocket = io(import.meta.env.VITE_SERVER_URL || 'http://localhost:3001')
     setSocket(newSocket)
 
     newSocket.on('connect', () => {
