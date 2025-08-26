@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setRole } from '../store/slices/userSlice'
 import { Users, UserCheck, Sparkles, ArrowRight } from 'lucide-react'
+import Footer from '../components/Footer'
 
 const Welcome = () => {
   const navigate = useNavigate()
@@ -14,6 +15,7 @@ const Welcome = () => {
   }
 
   return (
+    <div>
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-4 relative overflow-hidden" style={{
       background: 'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%)'
     }}>
@@ -111,6 +113,8 @@ const Welcome = () => {
         <div className="absolute top-4 right-4 w-2 h-2 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-pulse"></div>
         <div className="absolute bottom-4 left-4 w-1 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full animate-pulse delay-1000"></div>
       </div>
+    </div>
+          <Footer />
     </div>
   )
 }
